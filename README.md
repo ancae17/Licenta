@@ -1,5 +1,5 @@
 # Licenta Anca Esanu
-Aplicatie Web de tip eCommerce pentru vanzare de produse handmade si personalizate. 
+Aplicatie Web de tip eCommerce pentru vanzare de produse handmade si personalizate. </br>
 Aceasta aplicatie va avea un cont de admin care va putea adauga produse si sa vada comenzile, si conturile de utilizatori care vor putea naviga pe site. La cumpararea unui produs utilizatorul va trebui sa isi adauge preferintele inainte de a adauga produsul in cos.
 Tehnologii folosite: React si Firebase
 Structura pe saptamani:
