@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
+import { Button } from '@mui/material';
+import "./Account.css"
 
 const Account = () => {
   const { user, logout } = UserAuth();
@@ -17,13 +19,18 @@ const Account = () => {
   };
 
   return (
-    <div className='max-w-[600px] mx-auto my-16 p-4'>
+    <div className='account-page'>
       <h1 className='text-2xl font-bold py-4'>Account</h1>
       <p>User Email: {user && user.email}</p>
 
-      <button onClick={handleLogout} className='border px-6 py-2 my-4'>
+      {/* <button onClick={handleLogout} className='border px-6 py-2 my-4'>
         Logout
-      </button>
+      </button> */}
+      <Button 
+          variant="contained"
+          onClick={handleLogout}>
+          Logout
+        </Button>
     </div>
   );
 };
