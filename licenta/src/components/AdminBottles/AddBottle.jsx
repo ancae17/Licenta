@@ -4,17 +4,42 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/system';
 
+import { collection, addDoc } from "firebase/firestore";
+import { firestore } from "../../firebase"; // Assuming you have a separate file for your Firebase configuration
+import ImageUpload from './ImageUpload';
+
+
 const AddBottle = () => {
   const [productName, setProductName] = useState('');
   const [description, setDescription] = useState('');
   const [possibleElements, setPossibleElements] = useState('');
-  
-  const handleAddToPage = () => {
-    // Logic for adding the product to the page
-  };
 
-  const handleAddPhotoClick = () => {
-    //Logic for add photo
+  const [productImage, setProductImage] = useState(null);
+
+  const handleImageUpload = (image) => {
+    setProductImage(image);
+  };
+  
+  const handleAddToPage = async () => {
+	try {
+	  // Create a new document in the "bottles" collection
+	  const docRef = await addDoc(collection(firestore, "bottles"), {
+		productImage,
+		productName,
+		description,
+		possibleElements,
+	  });
+  
+	  console.log("Product added with ID: ", docRef.id);
+  
+	  // Clear the form inputs
+	  setProductImage(null);
+	  setProductName("");
+	  setDescription("");
+	  setPossibleElements("");
+	} catch (error) {
+	  console.error("Error adding product: ", error);
+	}
   };
 
   const navigate = useNavigate();
@@ -30,11 +55,12 @@ const AddBottle = () => {
   return (
     <div className="product-page">
      <div>
-     <Button onClick={handleAddPhotoClick} variant="outlined" color="secondary">
+     {/* <Button onClick={handleAddPhotoClick} variant="outlined" color="secondary">
              <AddPhotoAlternateIcon sx={{ fontSize: 100 }}
              variant="outlined"
              color="secondary"/>
-         </Button>
+         </Button> */}
+		 <ImageUpload onImageUpload={handleImageUpload} />
      </div>
       <form className="product-form">
         <div className="form-group">
