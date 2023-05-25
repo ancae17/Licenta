@@ -16,7 +16,7 @@ const Register = () => {
     setError('');
     try {
       await createUser(email, password);
-      navigate('/account')
+      navigate('/')
     } catch (e) {
       setError(e.message);
       console.log(e.message);
@@ -71,6 +71,7 @@ const Register = () => {
         </button> */}
         <Button 
           variant="contained"
+          color="secondary"
           onClick={handleSubmit}>
           Sign Up
         </Button>

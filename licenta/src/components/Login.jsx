@@ -16,7 +16,7 @@ const Login = () => {
     setError('')
     try {
       await signIn(email, password)
-      navigate('/account')
+      navigate('/')
     } catch (e) {
       setError(e.message)
       console.log(e.message)
@@ -63,6 +63,7 @@ const Login = () => {
         </button> */}
         <Button 
           variant="contained"
+          color='secondary'
           onClick={handleSubmit}>
           Sign In
         </Button>

@@ -5,14 +5,41 @@ import Account from './components/Account';
 import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import TshirtsMain from './components/Tshirts/TshitsMain'
+import PackagesMain from './components/Packagess/PackagesMain';
+import GlassesMain from './components/Glasses/GlassesMain';
+import BottlesMain from './components/Bottles/BottlesMain';
+import BottlesPage from './components/Bottles/BottlesPage';
+
+import AdminBottlesMain from './components/AdminBottles/AdminBottlesMain';
+import CartPage from './components/ShoppingCart/CartPage';
+import AddBottle from './components/AdminBottles/AddBottle';
+import AdminGlassesMain from './components/AdminGlasses/AdminGlassesMain';
+import AdminPackagesMain from './components/AdminPackages/AdminPackagesMain';
+import AdminTshirtsMain from './components/AdminTshirts/AdminTshirtsMain';
+
 
 function App() {
   return (
     <div>
-           <AuthContextProvider>
+      <AuthContextProvider>
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path='/' element={<BottlesMain />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/tshirtsmain' element={<TshirtsMain />} />
+          <Route path='/packagesmain' element={<PackagesMain />} />
+          <Route path='/glassesmain' element={<GlassesMain />} />
+          <Route path='/bottlesmain' element={<BottlesMain />} />
+          <Route path='/bottlespage' element={<BottlesPage />} />
+          <Route path='/cartpage' element={<CartPage />} />
+          <Route path='/addbottle' element={<AddBottle />} />
+          <Route path='/adminbottlesmain' element={<AdminBottlesMain />} />
+          <Route path='/adminglassesmain' element={<AdminGlassesMain />} />
+          <Route path='/adminpackagesmain' element={<AdminPackagesMain />} />
+          <Route path='/admintshirtsmain' element={<AdminTshirtsMain />} />
+          
+
           <Route
             path='/account'
             element={
@@ -26,5 +53,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
