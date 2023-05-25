@@ -12,6 +12,17 @@ const Login = () => {
   const { signIn } = UserAuth();
 
   const handleSubmit = async (e) => {
+    if (email==="admin@admin.com") {
+      e.preventDefault();
+      setError('')
+      try {
+        await signIn(email, password)
+        navigate('/AdminBottlesMain')
+      } catch (e) {
+        setError(e.message)
+        console.log(e.message)
+      }
+    } else {
     e.preventDefault();
     setError('')
     try {
@@ -21,6 +32,7 @@ const Login = () => {
       setError(e.message)
       console.log(e.message)
     }
+  }
   };
 
   return (

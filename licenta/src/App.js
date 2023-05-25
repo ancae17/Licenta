@@ -17,6 +17,9 @@ import AddBottle from './components/AdminBottles/AddBottle';
 import AdminGlassesMain from './components/AdminGlasses/AdminGlassesMain';
 import AdminPackagesMain from './components/AdminPackages/AdminPackagesMain';
 import AdminTshirtsMain from './components/AdminTshirts/AdminTshirtsMain';
+import AddTshirt from './components/AdminTshirts/AddTshirt';
+import AddGlass from './components/AdminGlasses/AddGlass';
+import AddPackage from './components/AdminPackages/AddPackage';
 
 
 function App() {
@@ -38,6 +41,9 @@ function App() {
           <Route path='/adminglassesmain' element={<AdminGlassesMain />} />
           <Route path='/adminpackagesmain' element={<AdminPackagesMain />} />
           <Route path='/admintshirtsmain' element={<AdminTshirtsMain />} />
+          <Route path='/addtshirt' element={<AddTshirt />} />
+          <Route path='/addglass' element={<AddGlass />} />
+          <Route path='/addpackage' element={<AddPackage />} />
           
 
           <Route
