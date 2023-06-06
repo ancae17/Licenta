@@ -33,19 +33,19 @@ const AdminPackagesImage = ({ products }) => {
       
       {products.map((product) => (
         <Card
-          key={product.id}
-          className={`image-card ${hoveredProduct === product ? 'hovered' : ''}`}
-          onMouseEnter={() => handleMouseEnter(product)}
-          onMouseLeave={handleMouseLeave}
-        >
-          <img src={product.image} alt={product.title} className="image" />
-          <CardContent>
-            <Typography variant="h5" component="div" className="card-title">
-              {product.title}
-            </Typography>
-            
-          </CardContent>
-        </Card>
+        className={'image-card'}
+        key={product.id}
+        onMouseEnter={() => handleMouseEnter(product)}
+        onMouseLeave={handleMouseLeave}
+      >
+        <img src={product.image} alt={""} className="image" />
+        <CardContent>
+          <Typography variant="h5" component="div">
+            {product.data.productName}
+          </Typography>
+          <Typography variant="body2">{product.data.description}</Typography>
+        </CardContent>
+      </Card>
       ))}
     </div>
     </div>

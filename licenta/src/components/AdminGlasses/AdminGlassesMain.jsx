@@ -1,23 +1,44 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import AdminNavBar from '../AdminNavBar';
-import AdminBottlesImage from './AdminGlassesImage';
-
-const products = [
-    { id: 1, title: 'Product 1', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 2, title: 'Product 2', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 3, title: 'Product 3', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 4, title: 'Product 4', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 5, title: 'Product 5', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 6, title: 'Product 6', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 7, title: 'Product 7', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-];
+import AdminGlassesImage from './AdminGlassesImage';
+import { firestore, storage } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
 
 const AdminGlassesMain = () => {
+  const [glasses, setGlasses] = useState([]);
 
+  const fetchGlasses = async () => {
+    const glassesCollection = await getDocs(collection(firestore, "glasses"));
+    const promises = glassesCollection.docs.map(async (doc) => {
+      const image = await handleRetrieveFile(doc.id);
+      return { id: doc.id, data: doc.data(), image };
+    });
+
+    const glassesData = await Promise.all(promises);
+    setGlasses(glassesData);
+  };
+
+  useEffect(() => {
+    fetchGlasses();
+  }, []);
+
+  const handleRetrieveFile = async (id) => {
+    try {
+      const storageRef = ref(storage, `images/glasses/${id}`);
+  
+      const downloadURL = await getDownloadURL(storageRef);
+  
+      return downloadURL;
+      
+    } catch (error) {
+      console.error("Error retrieving file: ", error);
+    }
+  };
   return (
     <div>
     <AdminNavBar/>
-    <AdminBottlesImage products={products} />
+    <AdminGlassesImage products={glasses} />
     </div>
   );
 }

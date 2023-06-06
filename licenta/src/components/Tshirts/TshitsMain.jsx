@@ -1,24 +1,45 @@
-import * as React from 'react';
-import NavBar from '../NavBar';
-import TshirtsImage from './TshirtsImage';
-
-const products = [
-    { id: 1, title: 'Product 1', image: 'https://zajo.bwcdn.net/media/2022/06/1/5/sk-leon-t-shirt-ss-15869-size-large-v-2.jpg' },
-    { id: 2, title: 'Product 2', image: 'https://zajo.bwcdn.net/media/2022/06/1/5/sk-leon-t-shirt-ss-15869-size-large-v-2.jpg' },
-    { id: 3, title: 'Product 3', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 4, title: 'Product 4', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 5, title: 'Product 5', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 6, title: 'Product 6', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-    { id: 7, title: 'Product 7', image: 'https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg' },
-];
+import React, { useEffect, useState } from "react";
+import NavBar from "../NavBar";
+import TshirtsImage from "./TshirtsImage";
+import { firestore, storage } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { ref, getDownloadURL } from "firebase/storage";
 
 const TshirtsMain = () => {
+  const [tshirts, setTshirts] = useState([]);
 
+  const fetchTshirts = async () => {
+    const tshirtsCollection = await getDocs(collection(firestore, "tshirt"));
+    const promises = tshirtsCollection.docs.map(async (doc) => {
+      const image = await handleRetrieveFile(doc.id);
+      return { id: doc.id, data: doc.data(), image };
+    });
+
+    const tshirtsData = await Promise.all(promises);
+    setTshirts(tshirtsData);
+    debugger;
+  };
+
+  useEffect(() => {
+    fetchTshirts();
+  }, []);
+
+  const handleRetrieveFile = async (id) => {
+    try {
+      const storageRef = ref(storage, `images/tshirt/${id}`);
+
+      const downloadURL = await getDownloadURL(storageRef);
+
+      return downloadURL;
+    } catch (error) {
+      console.error("Error retrieving file: ", error);
+    }
+  };
   return (
     <div>
-    <NavBar/>
-    <TshirtsImage products={products} />
+      <NavBar />
+      <TshirtsImage products={tshirts} />
     </div>
   );
-}
+};
 export default TshirtsMain;
