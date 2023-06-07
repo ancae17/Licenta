@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './GlassesPage.css';
+import { Button, Typography } from "@mui/material";
+import { useLocation } from 'react-router';
 
 const GlassesPage = () => {
+  const location = useLocation()
+  const data = location.state
+
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [description, setDescription] = useState('');
@@ -11,13 +16,16 @@ const GlassesPage = () => {
     // Logic for adding the product to the cart
   };
   
-  return (
+ return (
     <div className="product-page">
       <div className="product-info">
         <div className="product-image">
-          <img src="https://bluebarrows.in/wp-content/uploads/2020/10/IMG20200520231727-scaled-1-1.jpg" alt="Product" />
+          <img src={data.image} alt="Product" />
         </div>
-        <h1>Product Name</h1>
+        <h1>{data.data.productName}</h1>
+      </div>
+      <div>
+        <Typography marginBottom={10}>{data.data.description}</Typography>
       </div>
       <form className="product-form">
         <div className="form-group">
@@ -55,9 +63,9 @@ const GlassesPage = () => {
             onChange={(e) => setFavoriteElements(e.target.value)}
           />
         </div>
-        <button type="submit" onClick={handleAddToCart}>
+        <Button variant="contained" color="secondary" type="submit" onClick={handleAddToCart}>
           Add to Cart
-        </button>
+        </Button>
       </form>
     </div>
   );

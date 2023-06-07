@@ -9,8 +9,6 @@ import TshirtsMain from './components/Tshirts/TshitsMain'
 import PackagesMain from './components/Packagess/PackagesMain';
 import GlassesMain from './components/Glasses/GlassesMain';
 import BottlesMain from './components/Bottles/BottlesMain';
-import BottlesPage from './components/Bottles/BottlesPage';
-
 import AdminBottlesMain from './components/AdminBottles/AdminBottlesMain';
 import CartPage from './components/ShoppingCart/CartPage';
 import AddBottle from './components/AdminBottles/AddBottle';
@@ -20,7 +18,10 @@ import AdminTshirtsMain from './components/AdminTshirts/AdminTshirtsMain';
 import AddTshirt from './components/AdminTshirts/AddTshirt';
 import AddGlass from './components/AdminGlasses/AddGlass';
 import AddPackage from './components/AdminPackages/AddPackage';
-
+import GlassesPage from "./components/Glasses/GlassesPage";
+import PackagesPage from "./components/Packagess/PackagesPage";
+import TshirtsPage from "./components/Tshirts/TshirtsPage";
+import BottlesPage from './components/Bottles/BottlesPage';
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
           <Route path='/glassesmain' element={<GlassesMain />} />
           <Route path='/bottlesmain' element={<BottlesMain />} />
           <Route path='/bottlespage' element={<BottlesPage />} />
+          <Route path='/glassespage' element={<GlassesPage />} />
+          <Route path='/tshirtspage' element={<TshirtsPage />} />
+          <Route path='/packagespage' element={<PackagesPage />} />
           <Route path='/cartpage' element={<CartPage />} />
           <Route path='/addbottle' element={<AddBottle />} />
           <Route path='/adminbottlesmain' element={<AdminBottlesMain />} />

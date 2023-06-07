@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Button, Card, CardContent, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import './GlassesImage.css'; // Import the CSS file for styling
+import { useNavigate } from "react-router-dom";
+
 
 const GlassesImage = ({ products }) => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const navigate = useNavigate();
 
   const handleMouseEnter = (product) => {
     setHoveredProduct(product);
@@ -12,6 +15,10 @@ const GlassesImage = ({ products }) => {
 
   const handleMouseLeave = () => {
     setHoveredProduct(null);
+  };
+
+  const handleNavigateToProductOnClick = (product) => {
+    navigate("/glassespage", { state: product });
   };
 
   return (
@@ -28,9 +35,11 @@ const GlassesImage = ({ products }) => {
           <Typography variant="h5" component="div">
             {product.data.productName}
           </Typography>
-          <Typography variant="body2">{product.data.description}</Typography>
-        </CardContent>
-      </Card>
+       </CardContent>
+       <Button onClick={() => handleNavigateToProductOnClick(product)} color="secondary">
+            View product
+          </Button>
+        </Card>
       ))}
     </div>
   );
