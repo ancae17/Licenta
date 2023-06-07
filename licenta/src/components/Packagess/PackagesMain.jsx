@@ -27,7 +27,7 @@ const PackagesMain = () => {
 
   const handleRetrieveFile = async (id) => {
     try {
-      const storageRef = ref(storage, `images/packages/${id}`);
+      const storageRef = ref(storage, `images/${id}`);
 
       const downloadURL = await getDownloadURL(storageRef);
 

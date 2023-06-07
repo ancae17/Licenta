@@ -12,6 +12,8 @@ const AddBottle = () => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [possibleElements, setPossibleElements] = useState("");
+  const [price, setPrice] = useState(0);
+
 
   const [productImage, setProductImage] = useState(null);
 
@@ -20,7 +22,7 @@ const AddBottle = () => {
   };
 
   const handleFileUpload = async (file, id) => {
-    const storageRef = ref(storage, `images/bottles/${id}`);
+    const storageRef = ref(storage, `images/${id}`);
 
     await uploadBytes(storageRef, file);
 
@@ -35,7 +37,8 @@ const AddBottle = () => {
         productName,
         description,
         possibleElements,
-        category: "bottles"
+        category: "bottles",
+        price
       });
       
       await handleFileUpload(productImage, docRef.id);
@@ -101,6 +104,16 @@ const AddBottle = () => {
             onChange={(e) => setPossibleElements(e.target.value)}
           />
         </div>
+        <div className="form-group">
+        <label htmlFor="price">Price</label>
+          <input
+             type="number"
+             id="price"
+             value={price}
+            onChange={(e) => setPrice(parseFloat(e.target.value))}
+          />
+        </div>
+
         <Button
           variant="contained"
           color="secondary"

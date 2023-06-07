@@ -12,6 +12,7 @@ const AddPackage = () => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [possibleElements, setPossibleElements] = useState("");
+  const [price, setPrice] = useState(0);
 
   const [productImage, setProductImage] = useState(null);
 
@@ -20,7 +21,7 @@ const AddPackage = () => {
   };
 
   const handleFileUpload = async (file, id) => {
-    const storageRef = ref(storage, `images/packages/${id}`);
+    const storageRef = ref(storage, `images/${id}`);
 
     await uploadBytes(storageRef, file);
 
@@ -35,7 +36,8 @@ const AddPackage = () => {
         productName,
         description,
         possibleElements,
-        category: "packages"
+        category: "packages",
+        price
       });
       
       await handleFileUpload(productImage, docRef.id);
@@ -99,6 +101,15 @@ const AddPackage = () => {
             id="possibleElements"
             value={possibleElements}
             onChange={(e) => setPossibleElements(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+        <label htmlFor="price">Price</label>
+          <input
+             type="number"
+             id="price"
+             value={price}
+            onChange={(e) => setPrice(parseFloat(e.target.value))}
           />
         </div>
         <Button

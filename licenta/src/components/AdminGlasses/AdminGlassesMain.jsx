@@ -9,7 +9,7 @@ const AdminGlassesMain = () => {
   const [glasses, setGlasses] = useState([]);
 
   const fetchGlasses = async () => {
-    const glassesCollection = await getDocs(collection(firestore, "glasses"));
+    const glassesCollection = await getDocs(collection(firestore, "items"));
     const promises = glassesCollection.docs
     .filter((doc) => doc.data().category === "glasses")
     .map(async (doc) => {
@@ -27,7 +27,7 @@ const AdminGlassesMain = () => {
 
   const handleRetrieveFile = async (id) => {
     try {
-      const storageRef = ref(storage, `images/glasses/${id}`);
+      const storageRef = ref(storage, `images/${id}`);
   
       const downloadURL = await getDownloadURL(storageRef);
   

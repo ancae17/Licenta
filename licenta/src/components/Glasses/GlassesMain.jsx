@@ -27,7 +27,7 @@ const GlassesMain = () => {
 
   const handleRetrieveFile = async (id) => {
     try {
-      const storageRef = ref(storage, `images/glasses/${id}`);
+      const storageRef = ref(storage, `images/${id}`);
 
       const downloadURL = await getDownloadURL(storageRef);
 

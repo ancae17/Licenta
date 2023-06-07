@@ -9,7 +9,7 @@ const AdminTshirtsMain = () => {
   const [tshirts, setTshirts] = useState([]);
 
   const fetchTshirts = async () => {
-    const tshirtsCollection = await getDocs(collection(firestore, "tshirt"));
+    const tshirtsCollection = await getDocs(collection(firestore, "items"));
     const promises = tshirtsCollection.docs
     .filter((doc) => doc.data().category === "tshirts")
     .map(async (doc) => {
@@ -27,7 +27,7 @@ const AdminTshirtsMain = () => {
 
   const handleRetrieveFile = async (id) => {
     try {
-      const storageRef = ref(storage, `images/tshirt/${id}`);
+      const storageRef = ref(storage, `images/${id}`);
   
       const downloadURL = await getDownloadURL(storageRef);
   

@@ -27,7 +27,7 @@ const TshirtsMain = () => {
 
   const handleRetrieveFile = async (id) => {
     try {
-      const storageRef = ref(storage, `images/tshirt/${id}`);
+      const storageRef = ref(storage, `images/${id}`);
 
       const downloadURL = await getDownloadURL(storageRef);
 

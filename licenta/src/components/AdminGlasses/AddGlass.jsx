@@ -12,6 +12,7 @@ const AddGlass = () => {
   const [productName, setProductName] = useState("");
   const [description, setDescription] = useState("");
   const [possibleElements, setPossibleElements] = useState("");
+  const [price, setPrice] = useState(0);
 
   const [productImage, setProductImage] = useState(null);
 
@@ -20,7 +21,7 @@ const AddGlass = () => {
   };
 
   const handleFileUpload = async (file, id) => {
-    const storageRef = ref(storage, `images/glasses/${id}`);
+    const storageRef = ref(storage, `images/${id}`);
 
     await uploadBytes(storageRef, file);
 
@@ -35,7 +36,8 @@ const AddGlass = () => {
         productName,
         description,
         possibleElements,
-        category: "glasses"
+        category: "glasses",
+        price
       });
       
       await handleFileUpload(productImage, docRef.id);
@@ -99,6 +101,15 @@ const AddGlass = () => {
             id="possibleElements"
             value={possibleElements}
             onChange={(e) => setPossibleElements(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+        <label htmlFor="price">Price</label>
+          <input
+             type="number"
+             id="price"
+             value={price}
+            onChange={(e) => setPrice(parseFloat(e.target.value))}
           />
         </div>
         <Button

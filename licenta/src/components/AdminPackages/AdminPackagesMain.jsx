@@ -9,7 +9,7 @@ const AdminPackagesMain = () => {
   const [packages, setPackages] = useState([]);
 
   const fetchPackages = async () => {
-    const packagesCollection = await getDocs(collection(firestore, "packages"));
+    const packagesCollection = await getDocs(collection(firestore, "items"));
     const promises = packagesCollection.docs
     .filter((doc) => doc.data().category === "packages")
     .map(async (doc) => {
@@ -27,7 +27,7 @@ const AdminPackagesMain = () => {
 
   const handleRetrieveFile = async (id) => {
     try {
-      const storageRef = ref(storage, `images/packages/${id}`);
+      const storageRef = ref(storage, `images/${id}`);
   
       const downloadURL = await getDownloadURL(storageRef);
   
