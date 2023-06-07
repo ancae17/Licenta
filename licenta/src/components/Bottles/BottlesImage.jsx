@@ -31,7 +31,7 @@ const BottlesImage = ({ products }) => {
         >
           <img src={product.image} alt={""} className="image" />
           <CardContent>
-            <Typography variant="h5" component="div">
+            <Typography variant="h5" component="div" align="center">
               {product.data.productName}
             </Typography>
           </CardContent>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './PackagesPage.css';
 import { Button, Typography} from "@mui/material";
 import { useLocation } from 'react-router';
+import ReactImageMagnify from 'react-image-magnify';
 
 const PackagesPage = () => {
   const location = useLocation()
@@ -20,7 +21,18 @@ const PackagesPage = () => {
     <div className="product-page">
       <div className="product-info">
         <div className="product-image">
-          <img src={data.image} alt="Product" />
+        <ReactImageMagnify {...{
+    smallImage: {
+        alt: 'Wristwatch by Ted Baker London',
+        isFluidWidth: true,
+        src: data.image
+    },
+    largeImage: {
+        src: data.image,
+        width: 500,
+        height: 500
+    }
+}} />
         </div>
         <h1>{data.data.productName}</h1>
       </div>

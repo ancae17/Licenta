@@ -17,7 +17,6 @@ const TshirtsMain = () => {
 
     const tshirtsData = await Promise.all(promises);
     setTshirts(tshirtsData);
-    debugger;
   };
 
   useEffect(() => {
