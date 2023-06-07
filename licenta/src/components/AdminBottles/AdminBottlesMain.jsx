@@ -9,8 +9,10 @@ const AdminBottlesMain = () => {
   const [bottles, setBottles] = useState([]);
 
   const fetchBottles = async () => {
-    const bottlesCollection = await getDocs(collection(firestore, "bottles"));
-    const promises = bottlesCollection.docs.map(async (doc) => {
+    const bottlesCollection = await getDocs(collection(firestore, "items"));
+    const promises = bottlesCollection.docs
+    .filter((doc) => doc.data().category === "bottles")
+    .map(async (doc) => {
       const image = await handleRetrieveFile(doc.id);
       return { id: doc.id, data: doc.data(), image };
     });

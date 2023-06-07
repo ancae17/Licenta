@@ -16,7 +16,7 @@ const BottlesPage = (props) => {
   const { user } = UserAuth();
 
   const handleAddToCart = async () => {
-    console.log(item.id)
+    debugger;
     try {
       const docRef = await addDoc(collection(firestore, "cartItems"), {
 

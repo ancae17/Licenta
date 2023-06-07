@@ -31,10 +31,11 @@ const AddPackage = () => {
     try {
       // Create a new document in the "packages" collection
       
-      const docRef = await addDoc(collection(firestore, "packages"), {
+      const docRef = await addDoc(collection(firestore, "items"), {
         productName,
         description,
         possibleElements,
+        category: "packages"
       });
       
       await handleFileUpload(productImage, docRef.id);

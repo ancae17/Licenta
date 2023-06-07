@@ -10,7 +10,9 @@ const AdminTshirtsMain = () => {
 
   const fetchTshirts = async () => {
     const tshirtsCollection = await getDocs(collection(firestore, "tshirt"));
-    const promises = tshirtsCollection.docs.map(async (doc) => {
+    const promises = tshirtsCollection.docs
+    .filter((doc) => doc.data().category === "tshirts")
+    .map(async (doc) => {
       const image = await handleRetrieveFile(doc.id);
       return { id: doc.id, data: doc.data(), image };
     });

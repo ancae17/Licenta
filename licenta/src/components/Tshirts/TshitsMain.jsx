@@ -9,8 +9,10 @@ const TshirtsMain = () => {
   const [tshirts, setTshirts] = useState([]);
 
   const fetchTshirts = async () => {
-    const tshirtsCollection = await getDocs(collection(firestore, "tshirt"));
-    const promises = tshirtsCollection.docs.map(async (doc) => {
+    const tshirtsCollection = await getDocs(collection(firestore, "items"));
+    const promises = tshirtsCollection.docs
+    .filter((doc) => doc.data().category === "tshirts")
+    .map(async (doc) => {
       const image = await handleRetrieveFile(doc.id);
       return { id: doc.id, data: doc.data(), image };
     });

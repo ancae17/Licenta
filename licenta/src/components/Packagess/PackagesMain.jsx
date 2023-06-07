@@ -9,8 +9,10 @@ const PackagesMain = () => {
   const [packages, setPackages] = useState([]);
 
   const fetchPackages = async () => {
-    const packagesCollection = await getDocs(collection(firestore, "packages"));
-    const promises = packagesCollection.docs.map(async (doc) => {
+    const packagesCollection = await getDocs(collection(firestore, "items"));
+    const promises = packagesCollection.docs
+    .filter((doc) => doc.data().category === "packages")
+    .map(async (doc) => {
       const image = await handleRetrieveFile(doc.id);
       return { id: doc.id, data: doc.data(), image };
     });

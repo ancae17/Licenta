@@ -10,7 +10,9 @@ const AdminGlassesMain = () => {
 
   const fetchGlasses = async () => {
     const glassesCollection = await getDocs(collection(firestore, "glasses"));
-    const promises = glassesCollection.docs.map(async (doc) => {
+    const promises = glassesCollection.docs
+    .filter((doc) => doc.data().category === "glasses")
+    .map(async (doc) => {
       const image = await handleRetrieveFile(doc.id);
       return { id: doc.id, data: doc.data(), image };
     });
