@@ -48,6 +48,10 @@ function NavBar() {
     navigate("/CartPage");
   };
 
+  const handleFavoritesClick = () => {
+    navigate("/favorites");
+  };
+
   const handleLogoutClick = () => {
     auth
       .signOut() // Firebase sign-out method
@@ -76,6 +80,7 @@ function NavBar() {
             onChange={(e, value) => setValue(value)}
             indicatorColor="secondary"
           >
+            <Tab label="Favorites" onClick={handleFavoritesClick}/>
             <Tab label="Bottles" onClick={handleBottlesClick} />
             <Tab label="T-shirts" onClick={handleTshirtsClick}/>
             <Tab label="Glasses" onClick={handleGlassesClick}/>

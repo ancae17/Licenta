@@ -32,7 +32,6 @@ const OrdersCard = ({ products, setProducts }) => {
   const updateOrder = async (orderId) => {
     try {
       const orderRef = doc(firestore, "orders", orderId);
-      debugger;
       await updateDoc(orderRef, {
         status: "Sent"
       });
