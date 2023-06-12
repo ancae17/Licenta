@@ -6,14 +6,13 @@ import {
   Typography,
   CardActions,
 } from "@mui/material";
-import "./AdminBottlesImage.css"; // Import the CSS file for styling
-import { deleteDoc, doc } from "firebase/firestore";
+import "./Orders.css"; // Import the CSS file for styling
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
-const AdminBottlesImage = ({ products, setProducts }) => {
+const OrdersCard = ({ products, setProducts }) => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
-  const navigate = useNavigate();
 
   const handleMouseEnter = (product) => {
     setHoveredProduct(product);
@@ -23,28 +22,29 @@ const AdminBottlesImage = ({ products, setProducts }) => {
     setHoveredProduct(null);
   };
 
-  const handleAddBottleClick = () => {
-    navigate("/AddBottle");
-  };
-
-  const handleDelete = async (documentId) => {
-    await deleteDoc(doc(firestore, "items", documentId));
+  const handleSend = async (documentId) => {
+    await updateOrder(documentId);
     setProducts((products) =>
       products.filter((item) => item.id !== documentId)
     );
   };
 
+  const updateOrder = async (orderId) => {
+    try {
+      const orderRef = doc(firestore, "orders", orderId);
+      debugger;
+      await updateDoc(orderRef, {
+        status: "Sent"
+      });
+      
+      console.log('User data updated successfully!');
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
+  };
+
   return (
-    <div>
-      <div className="add-button">
-        <Button
-          variant="outlined"
-          color="inherit"
-          onClick={handleAddBottleClick}
-        >
-          Add Product
-        </Button>
-      </div>
+    <div style ={{marginTop:"100px"}}>
       <div className="image-list-container">
         {products.map((product) => (
           <Card
@@ -53,22 +53,21 @@ const AdminBottlesImage = ({ products, setProducts }) => {
             onMouseEnter={() => handleMouseEnter(product)}
             onMouseLeave={handleMouseLeave}
           >
-            <img src={product.image} alt={""} className="image" />
             <CardContent>
               <Typography variant="h5" component="div">
-                {product.data.productName}
+                {product.data.clientName}
               </Typography>
               <Typography variant="body2">
-                {product.data.description}
+                {product.data.address}
               </Typography>
             </CardContent>
             <CardActions>
               <Button
                 variant="contained"
                 color="secondary"
-                onClick={() => handleDelete(product.id)}
+                onClick={() => handleSend(product.id)}
               >
-                Delete
+                Send
               </Button>
             </CardActions>
           </Card>
@@ -78,4 +77,4 @@ const AdminBottlesImage = ({ products, setProducts }) => {
   );
 };
 
-export default AdminBottlesImage;
+export default OrdersCard;

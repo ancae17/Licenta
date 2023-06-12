@@ -3,7 +3,7 @@ import { AppBar, Button, Tab, Tabs, Toolbar, Typography } from "@mui/material";
 import { BrushTwoTone } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase"; // Import Firebase authentication module
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function AdminNavBar() {
   const [value, setValue] = useState();
@@ -14,6 +14,9 @@ function AdminNavBar() {
     // Check if the user is already logged in
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        if (user.email !== "admin@admin.com") {
+          navigate("/");
+        }
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -43,7 +46,10 @@ function AdminNavBar() {
   const handlePackagesClick = () => {
     navigate("/AdminPackagesMain");
   };
-  
+
+  const handleOrdersClick = () => {
+    navigate("/orders");
+  };
 
   const handleLogoutClick = () => {
     auth
@@ -63,9 +69,7 @@ function AdminNavBar() {
       <AppBar sx={{ background: "#290728" }}>
         <Toolbar>
           <BrushTwoTone sx={{ fontSize: 40 }} />
-          <Typography>
-            GiftLand
-          </Typography>
+          <Typography>GiftLand</Typography>
           <Tabs
             sx={{ marginLeft: "auto" }}
             textColor="inherit"
@@ -73,24 +77,24 @@ function AdminNavBar() {
             onChange={(e, value) => setValue(value)}
             indicatorColor="secondary"
           >
+            <Tab label="Orders" onClick={handleOrdersClick} />
             <Tab label="Bottles" onClick={handleBottlesClick} />
-            <Tab label="T-shirts" onClick={handleTshirtsClick}/>
-            <Tab label="Glasses" onClick={handleGlassesClick}/>
-            <Tab label="Packages" onClick={handlePackagesClick}/>
+            <Tab label="T-shirts" onClick={handleTshirtsClick} />
+            <Tab label="Glasses" onClick={handleGlassesClick} />
+            <Tab label="Packages" onClick={handlePackagesClick} />
           </Tabs>
 
-       
           {isLoggedIn ? (
             <div>
               <Button
-              sx={{ marginLeft: "auto" }}
-              variant="outlined"
-              color="inherit"
-              onClick={handleLogoutClick}
-            >
-              Logout
-            </Button>
-         </div>
+                sx={{ marginLeft: "auto" }}
+                variant="outlined"
+                color="inherit"
+                onClick={handleLogoutClick}
+              >
+                Logout
+              </Button>
+            </div>
           ) : (
             <Button
               sx={{ marginLeft: "10px" }}

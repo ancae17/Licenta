@@ -1,33 +1,62 @@
-import React, { useState } from 'react';
-import { TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
+import React, { useState } from "react";
+import { TextField, Checkbox, FormControlLabel, Button } from "@mui/material";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { firestore, storage } from "../../firebase";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const CheckoutPage = () => {
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [address, setAddress] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [plataRamburs, setPlataRamburs] = useState(false);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const { cartItems, totalCost } = location.state;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Do something with the form data
-    console.log('Name:', name);
-    console.log('Surname:', surname);
-    console.log('Address:', address);
-    console.log('Phone Number:', phoneNumber);
-    console.log('Plata Ramburs:', plataRamburs);
+
+    try {
+      const docRef = await addDoc(collection(firestore, "orders"), {
+        cartItems,
+        clientName: `${name} ${surname}`,
+        address: address,
+        phoneNumber: phoneNumber,
+        ramburs: plataRamburs,
+        status: "In process",
+        totalCost,
+      });
+    } catch (error) {}
+
+    cartItems.forEach(async (element) => {
+      await deleteDoc(doc(firestore, "cartItems", element.id));
+    });
 
     // Clear form fields after submission
-    setName('');
-    setSurname('');
-    setAddress('');
-    setPhoneNumber('');
+    setName("");
+    setSurname("");
+    setAddress("");
+    setPhoneNumber("");
     setPlataRamburs(false);
+
+    navigate("/");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ width: "500px", marginLeft: "550px", marginTop: "100px"}}>
+    <form
+      onSubmit={handleSubmit}
+      style={{ width: "500px", marginLeft: "550px", marginTop: "100px" }}
+    >
       <TextField
         label="Name"
         value={name}
@@ -74,10 +103,7 @@ const CheckoutPage = () => {
         label="Plata Ramburs"
       />
 
-      <Button  
-        variant="contained"
-        color="secondary" 
-        type="submit">
+      <Button variant="contained" color="secondary" type="submit">
         Submit
       </Button>
     </form>

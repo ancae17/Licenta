@@ -23,6 +23,7 @@ import PackagesPage from "./components/Packagess/PackagesPage";
 import TshirtsPage from "./components/Tshirts/TshirtsPage";
 import BottlesPage from './components/Bottles/BottlesPage';
 import CheckoutPage from './components/ShoppingCart/CheckoutPage';
+import Orders from './components/Orders/Orders';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path='/addglass' element={<AddGlass />} />
           <Route path='/addpackage' element={<AddPackage />} />
           <Route path='/checkoutpage' element={<CheckoutPage />} />
+          <Route path='/orders' element={<Orders />} />
           
 
           <Route

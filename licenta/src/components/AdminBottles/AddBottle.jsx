@@ -3,9 +3,9 @@ import { Button } from "@mui/material";
 import { ref, uploadBytes } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
-
+import AdminNavBar from "../AdminNavBar";
 import { collection, addDoc } from "firebase/firestore";
-import { firestore, storage } from "../../firebase"; // Assuming you have a separate file for your Firebase configuration
+import { firestore, storage } from "../../firebase";
 import ImageUpload from "../ImageUpload/ImageUpload";
 
 const AddBottle = () => {
@@ -50,6 +50,7 @@ const AddBottle = () => {
       setProductName("");
       setDescription("");
       setPossibleElements("");
+      setPrice("0");
     } catch (error) {
       console.error("Error adding product: ", error);
     }
@@ -66,7 +67,8 @@ const AddBottle = () => {
   });
 
   return (
-    <div className="product-page">
+    <div><AdminNavBar />
+    <div className="product-page" style={{marginTop: "100px"}}>
       <div>
         {/* <Button onClick={handleAddPhotoClick} variant="outlined" color="secondary">
              <AddPhotoAlternateIcon sx={{ fontSize: 100 }}
@@ -130,6 +132,7 @@ const AddBottle = () => {
           Previous Page
         </PreviousPageButton>
       </form>
+    </div>
     </div>
   );
 };

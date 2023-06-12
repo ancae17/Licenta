@@ -55,7 +55,6 @@ const CartPage = () => {
   const { user } = UserAuth();
 
   const fetchCartItems = async () => {
-
     const cartItemsCollection = await getDocs(
       collection(firestore, "cartItems")
     );
@@ -67,18 +66,15 @@ const CartPage = () => {
 
     const carItemsData = await Promise.all(carItemsPromises);
     const itemsCollection = await getDocs(collection(firestore, "items"));
-    const itemsPromises = itemsCollection.docs
-      .map(async (doc) => {
-        const image = await handleRetrieveFile(doc.id);
-        return { id: doc.id, data: doc.data(), image };
-      });
+    const itemsPromises = itemsCollection.docs.map(async (doc) => {
+      const image = await handleRetrieveFile(doc.id);
+      return { id: doc.id, data: doc.data(), image };
+    });
 
     const itemsData = await Promise.all(itemsPromises);
 
     const updatedCartItemsData = carItemsData.map((cartItem) => {
-      const item = itemsData.find(
-        (item) => item.id === cartItem.data.itemId
-      );
+      const item = itemsData.find((item) => item.id === cartItem.data.itemId);
       if (item) {
         return {
           ...cartItem,
@@ -86,12 +82,11 @@ const CartPage = () => {
             ...cartItem.data,
             ...item.data,
           },
-          image: item.image
+          image: item.image,
         };
       }
       return cartItem;
     });
-    debugger;
     setCartItems(updatedCartItemsData);
   };
 
@@ -118,7 +113,7 @@ const CartPage = () => {
     };
 
     fetchData();
-  }, []);
+  });
 
   const handleRetrieveFile = async (id) => {
     try {
@@ -133,12 +128,13 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    navigate("/CheckoutPage");
+    navigate("/CheckoutPage", { state: {cartItems, totalCost: cartTotal}});
   };
 
   const handlePreviousPage = () => {
     navigate(-1); // Go back to the previous page
   };
+
 
   return (
     <RootContainer>
@@ -169,7 +165,7 @@ const CartPage = () => {
               marginBottom: "10px",
             }}
           >
-            <Typography>{item.data.description}</Typography>
+            <Typography>{item.data.cartDescription}</Typography>
           </div>
           <div>
             <Button

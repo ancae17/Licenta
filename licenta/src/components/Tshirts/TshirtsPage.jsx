@@ -7,6 +7,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { firestore, storage } from "../../firebase"; 
 import ReactImageMagnify from "react-image-magnify";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../NavBar";
 
 const TshirtsPage = (props) => {
   const location = useLocation();
@@ -23,7 +24,7 @@ const TshirtsPage = (props) => {
 
         userId: user.uid,
         itemId: item.id,
-        description,
+        cartDescription: description,
         favoriteElements,
       });
       
@@ -32,6 +33,7 @@ const TshirtsPage = (props) => {
     } catch (error) {
       console.error("Error adding product: ", error);
     }
+    navigate("/CartPage")
   };
 
   const handleGoToLoginClick = () => {
@@ -39,7 +41,8 @@ const TshirtsPage = (props) => {
   };
   
   return (
-    <div className="product-page">
+    <div><NavBar />
+    <div className="product-page" style={{marginTop: "100px"}}>
       <div className="product-info">
         <div className="product-image">
           <ReactImageMagnify
@@ -110,6 +113,7 @@ const TshirtsPage = (props) => {
           Please log in to add this to your cart
         </Button>
       )}
+    </div>
     </div>
   );
 };

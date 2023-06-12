@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import AdminNavBar from '../AdminNavBar';
-import AdminBottlesImage from './AdminBottlesImage';
 import { firestore, storage } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
+import OrdersCard from "./OrdersCard";
 
-const AdminBottlesMain = () => {
-  const [bottles, setBottles] = useState([]);
+const Orders = () => {
+  const [orders, setOrders] = useState([]);
 
-  const fetchBottles = async () => {
-    const bottlesCollection = await getDocs(collection(firestore, "items"));
-    const promises = bottlesCollection.docs
-    .filter((doc) => doc.data().category === "bottles")
+  const fetchOrders = async () => {
+    const ordersCollection = await getDocs(collection(firestore, "orders"));
+    const promises = ordersCollection.docs
+    .filter((doc) => doc.data().status === "In process")
     .map(async (doc) => {
       const image = await handleRetrieveFile(doc.id);
       return { id: doc.id, data: doc.data(), image };
     });
 
-    const bottlesData = await Promise.all(promises);
-    setBottles(bottlesData);
+    const ordersData = await Promise.all(promises);
+    setOrders(ordersData);
   };
 
   useEffect(() => {
-    fetchBottles();
+    fetchOrders();
   }, []);
 
   const handleRetrieveFile = async (id) => {
@@ -40,8 +40,8 @@ const AdminBottlesMain = () => {
   return (
     <div>
     <AdminNavBar/>
-    <AdminBottlesImage products={bottles} setProducts={setBottles} />
+    <OrdersCard products={orders} setProducts={setOrders}/>
     </div>
   );
 }
-export default AdminBottlesMain;
+export default Orders;
