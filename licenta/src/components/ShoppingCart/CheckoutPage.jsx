@@ -20,6 +20,15 @@ const CheckoutPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [plataRamburs, setPlataRamburs] = useState(false);
 
+  const handlePhoneNumberChange = (event) => {
+    const { value } = event.target;
+    // Remove any non-digit characters from the input
+    const formattedValue = value.replace(/\D/g, '');
+    // Restrict the length to 10 digits
+    const truncatedValue = formattedValue.slice(0, 10);
+    setPhoneNumber(truncatedValue);
+  };
+
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -89,10 +98,15 @@ const CheckoutPage = () => {
       <TextField
         label="Phone Number"
         value={phoneNumber}
-        onChange={(e) => setPhoneNumber(e.target.value)}
+        onChange={handlePhoneNumberChange}
         fullWidth
         required
         margin="normal"
+        InputProps={{
+          inputProps: {
+            pattern: '[0-9]*', // Restrict input to digits only
+          },
+        }}
       />
 
       <FormControlLabel
