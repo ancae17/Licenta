@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { signIn } = UserAuth();
 
-  const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const handleGoogleLogin = () => {
     const provider = new GoogleAuthProvider();
@@ -52,7 +52,7 @@ const Login = () => {
       } catch (e) {
         setError(e.message);
         console.log(e.message);
-        setPasswordError("Credentiale gresite");
+        setLoginError("Credentiale gresite");
       }
     } else {
       e.preventDefault();
@@ -63,7 +63,7 @@ const Login = () => {
       } catch (e) {
         setError(e.message);
         console.log(e.message);
-        setPasswordError("Credentiale gresite");
+        setLoginError("Credentiale gresite");
       }
     }
   };
@@ -101,9 +101,9 @@ const Login = () => {
             type="password"
           />
         </div>
-        {passwordError && (
+        {loginError && (
             <Typography variant="body2" color="error">
-              {passwordError}
+              {loginError}
             </Typography>)}
         <Button variant="contained" color="secondary" onClick={handleSubmit}>
           Sign In
