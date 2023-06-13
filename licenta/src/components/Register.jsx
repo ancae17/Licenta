@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Typography } from '@mui/material';
 import "./Register.css";
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
   const { createUser } = UserAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const [registerError, setRegisterError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const Register = () => {
     } catch (e) {
       setError(e.message);
       console.log(e.message);
+      setRegisterError("Email invalid/ parola are mai putin de 6 caractere");
     }
   };
 
@@ -66,9 +69,10 @@ const Register = () => {
             className='input-password' 
             type='password' />
         </div>
-        {/* <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
-          Sign Up
-        </button> */}
+        {registerError && (
+            <Typography variant="body2" color="error">
+              {registerError}
+            </Typography>)}
         <Button 
           variant="contained"
           color="secondary"
