@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import "./Login.css";
 import GoogleIcon from '@mui/icons-material/Google';
@@ -12,6 +12,8 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { signIn } = UserAuth();
+
+  const [passwordError, setPasswordError] = useState("");
 
   const handleGoogleLogin = () => {
     const provider = new GoogleAuthProvider();
@@ -50,6 +52,7 @@ const Login = () => {
       } catch (e) {
         setError(e.message);
         console.log(e.message);
+        setPasswordError("Credentiale gresite");
       }
     } else {
       e.preventDefault();
@@ -60,6 +63,7 @@ const Login = () => {
       } catch (e) {
         setError(e.message);
         console.log(e.message);
+        setPasswordError("Credentiale gresite");
       }
     }
   };
@@ -77,8 +81,6 @@ const Login = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col py-2">
-          {/* <label className='py-2 font-medium'>Email Address</label>
-          <input onChange={(e) => setEmail(e.target.value)} className='border p-3' type='email' /> */}
           <TextField
             id="email"
             label="Email"
@@ -89,8 +91,6 @@ const Login = () => {
           />
         </div>
         <div className="flex flex-col py-2">
-          {/* <label className='py-2 font-medium'>Password</label> */}
-          {/* <input onChange={(e) => setPassword(e.target.value)} className='border p-3' type='password' /> */}
           <TextField
             id="password"
             label="Password"
@@ -101,9 +101,10 @@ const Login = () => {
             type="password"
           />
         </div>
-        {/* <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
-          Sign In
-        </button> */}
+        {passwordError && (
+            <Typography variant="body2" color="error">
+              {passwordError}
+            </Typography>)}
         <Button variant="contained" color="secondary" onClick={handleSubmit}>
           Sign In
         </Button>

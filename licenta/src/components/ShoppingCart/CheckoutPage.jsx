@@ -11,6 +11,8 @@ import { firestore, storage } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 
+
+
 const CheckoutPage = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -98,6 +100,7 @@ const CheckoutPage = () => {
           <Checkbox
             checked={plataRamburs}
             onChange={(e) => setPlataRamburs(e.target.checked)}
+            required
           />
         }
         label="Plata Ramburs"
