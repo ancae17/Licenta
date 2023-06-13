@@ -40,7 +40,7 @@ const AdminGlassesMain = () => {
   return (
     <div>
     <AdminNavBar/>
-    <AdminGlassesImage products={glasses} />
+    <AdminGlassesImage products={glasses} setProducts={setGlasses} />
     </div>
   );
 }

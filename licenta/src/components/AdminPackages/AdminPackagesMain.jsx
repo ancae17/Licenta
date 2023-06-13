@@ -40,7 +40,7 @@ const AdminPackagesMain = () => {
   return (
     <div>
     <AdminNavBar/>
-    <AdminPackagesImage products={packages} />
+    <AdminPackagesImage products={packages} setProducts={setPackages} />
     </div>
   );
 }

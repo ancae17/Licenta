@@ -4,6 +4,7 @@ import { UserAuth } from "../context/AuthContext";
 import { TextField, Button } from "@mui/material";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import "./Login.css";
+import GoogleIcon from '@mui/icons-material/Google';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -106,8 +107,14 @@ const Login = () => {
         <Button variant="contained" color="secondary" onClick={handleSubmit}>
           Sign In
         </Button>
-        <Button variant="contained" color="secondary" onClick={handleGoogleLogin}>
-          Sign In With Google
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: "10px"}}>
+         <hr style={{ flex: '1', borderTop: '1px solid black', width: '200px' }} />
+         <span style={{ margin: '0 10px' }}>or</span>
+         <hr style={{ flex: '1', borderTop: '1px solid black', height: '1px' }} />
+        </div>
+
+        <Button variant="contained" color="secondary" style={{marginTop: "10px"}} onClick={handleGoogleLogin}>
+         <GoogleIcon style={{marginLeft: "5px"}}></GoogleIcon> Sign In With Google
         </Button>
       </form>
     </div>

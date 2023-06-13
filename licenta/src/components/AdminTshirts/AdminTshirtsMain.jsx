@@ -40,7 +40,7 @@ const AdminTshirtsMain = () => {
   return (
     <div>
     <AdminNavBar/>
-    <AdminTshirtsImage products={tshirts} />
+    <AdminTshirtsImage products={tshirts} setProducts={setTshirts}/>
     </div>
   );
 }

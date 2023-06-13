@@ -36,15 +36,12 @@ const BottlesImage = ({ products }) => {
     
       return product;
     });
-    debugger;
     
     setBottles(updatedProducts)
 
     const favoriteItemIds = favoritesItems.map(f => f.data.itemId)
     setFavorites(favoriteItemIds);
-
-
-
+    
   };
 
   useEffect(() => {
@@ -68,7 +65,6 @@ const BottlesImage = ({ products }) => {
   };
 
   const handleHeartButtonClick = async (product) => {
-    debugger;
     if (favorites.includes(product.id)) {
       await deleteDoc(doc(firestore, "favorites", product.favoriteId));
       setFavorites(favorites.filter((fav) => fav !== product.id));

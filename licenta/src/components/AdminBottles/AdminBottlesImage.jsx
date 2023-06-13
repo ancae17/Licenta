@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Card,
-  CardContent,
-  Typography,
-  CardActions,
-} from "@mui/material";
+import { Button, Card, CardContent, Typography, CardActions } from "@mui/material";
 import "./AdminBottlesImage.css"; // Import the CSS file for styling
 import { deleteDoc, doc } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const AdminBottlesImage = ({ products, setProducts }) => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
@@ -46,6 +41,7 @@ const AdminBottlesImage = ({ products, setProducts }) => {
         </Button>
       </div>
       <div className="image-list-container">
+
         {products.map((product) => (
           <Card
             className={"image-card"}
@@ -64,11 +60,17 @@ const AdminBottlesImage = ({ products, setProducts }) => {
             </CardContent>
             <CardActions>
               <Button
-                variant="contained"
+                style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                zIndex: "1",
+                }}
+                variant="outlined"
                 color="secondary"
                 onClick={() => handleDelete(product.id)}
               >
-                Delete
+                <DeleteIcon></DeleteIcon>
               </Button>
             </CardActions>
           </Card>

@@ -3,7 +3,7 @@ import { Button, Card, CardContent, Typography } from "@mui/material";
 import "./FavoritesImage.css"; // Import the CSS file for styling
 import { useNavigate } from "react-router-dom";
 
-const BottlesImage = ({ products }) => {
+const FavoritesImage = ({ products }) => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const navigate = useNavigate();
 
@@ -62,4 +62,4 @@ const BottlesImage = ({ products }) => {
   );
 };
 
-export default BottlesImage;
+export default FavoritesImage;

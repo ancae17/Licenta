@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Card, CardContent, Typography } from '@mui/material';
+import { Button, Card, CardContent, Typography, CardActions } from '@mui/material';
 import './AdminPackagesImage.css'; // Import the CSS file for styling
+import { deleteDoc, doc } from "firebase/firestore";
+import { firestore } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-
-const AdminPackagesImage = ({ products }) => {
+const AdminPackagesImage = ({ products, setProducts }) => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const navigate = useNavigate();
 
@@ -18,6 +20,13 @@ const AdminPackagesImage = ({ products }) => {
 
   const handleAddPackageClick = () => {
     navigate("/AddPackage");
+  };
+
+  const handleDelete = async (documentId) => {
+    await deleteDoc(doc(firestore, "items", documentId));
+    setProducts((products) =>
+      products.filter((item) => item.id !== documentId)
+    );
   };
 
   return (
@@ -45,6 +54,21 @@ const AdminPackagesImage = ({ products }) => {
           </Typography>
           <Typography variant="body2">{product.data.description}</Typography>
         </CardContent>
+        <CardActions>
+        <Button
+                style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                zIndex: "1",
+                }}
+                variant="outlined"
+                color="secondary"
+                onClick={() => handleDelete(product.id)}
+              >
+                <DeleteIcon></DeleteIcon>
+              </Button>
+            </CardActions>
       </Card>
       ))}
     </div>
