@@ -25,13 +25,16 @@ import BottlesPage from './components/Bottles/BottlesPage';
 import CheckoutPage from './components/ShoppingCart/CheckoutPage';
 import Orders from './components/Orders/Orders';
 import FavoritesMain from './components/Favorites/FavoritesMain';
+import MainPage from './components/MainPage';
+import MyOrders from './components/MyOrders/MyOrders';
 
 function App() {
   return (
     <div>
       <AuthContextProvider>
         <Routes>
-          <Route path='/' element={<BottlesMain />} />
+          <Route path='/' element={<MainPage />} />
+          <Route path='/bottlesmain' element={<BottlesMain />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/tshirtsmain' element={<TshirtsMain />} />
@@ -54,6 +57,8 @@ function App() {
           <Route path='/checkoutpage' element={<CheckoutPage />} />
           <Route path='/orders' element={<Orders />} />
           <Route path='/favorites' element={<FavoritesMain />} />
+          <Route path='/myorders' element={<MyOrders />} />
+          
 
           <Route
             path='/account'

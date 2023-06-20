@@ -1,0 +1,41 @@
+.container-main {
+    display: flex;
+    justify-content: flex-end;
+    height: 100vh;
+  }
+  
+  .text-container-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 150px;
+  }
+  
+  .text-main {
+    margin: 0;
+    padding: 20px;
+    font-size: 20px;
+    color: #491357;
+  }
+  
+  .image-container-main {
+    width: 45%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 50px;
+  }
+  
+  .image-main {
+    max-height: 80vh;
+    width: auto;
+    border-radius: 20px;
+  }
+
+  

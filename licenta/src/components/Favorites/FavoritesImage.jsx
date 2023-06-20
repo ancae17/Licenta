@@ -16,7 +16,7 @@ const FavoritesImage = ({ products }) => {
   };
 
   const handleNavigateToProductOnClick = (product) => {
-    debugger;
+
     switch (product.data.category) {
       case "bottles":
         navigate("/bottlespage", { state: product });
@@ -48,6 +48,12 @@ const FavoritesImage = ({ products }) => {
           <CardContent>
             <Typography variant="h5" component="div" align="center">
               {product.data.productName}
+            </Typography>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: "3px"}}>
+                <hr style={{ flex: '1', borderTop: '1px solid black', width: '200px' }} />
+            </div>
+            <Typography variant="h6" component="div" align="center">
+              {product.data.price} RON
             </Typography>
           </CardContent>
           <Button

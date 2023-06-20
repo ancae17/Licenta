@@ -4,21 +4,20 @@ import { getAuth, browserLocalPersistence, setPersistence } from "firebase/auth"
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyDu41MTU5lNepEaioLrVlM1PFZwP3CvRfk",
-    authDomain: "licenta-47f5e.firebaseapp.com",
-    projectId: "licenta-47f5e",
-    storageBucket: "licenta-47f5e.appspot.com",
-    messagingSenderId: "710163984947",
-    appId: "1:710163984947:web:214e0115ec912fd868a946",
-    measurementId: "G-EQPBFRF78N"
-  };
-  
+  apiKey: "AIzaSyD1XUohrb47UQjsH5092mYhLO4rJR5H30o",
+  authDomain: "licenta-c2e5f.firebaseapp.com",
+  projectId: "licenta-c2e5f",
+  storageBucket: "licenta-c2e5f.appspot.com",
+  messagingSenderId: "207949649887",
+  appId: "1:207949649887:web:98d695e654957e34c1966a",
+  measurementId: "G-Z3PTEQ8V9S"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

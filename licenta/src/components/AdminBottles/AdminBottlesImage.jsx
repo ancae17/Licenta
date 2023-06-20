@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { Button, Card, CardContent, Typography, CardActions } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  CardActions,
+} from "@mui/material";
 import "./AdminBottlesImage.css"; // Import the CSS file for styling
 import { deleteDoc, doc } from "firebase/firestore";
-import { firestore } from "../../firebase";
+import { ref, deleteObject } from "firebase/storage";
+import { firestore, storage } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const AdminBottlesImage = ({ products, setProducts }) => {
   const [hoveredProduct, setHoveredProduct] = useState(null);
@@ -24,13 +31,18 @@ const AdminBottlesImage = ({ products, setProducts }) => {
 
   const handleDelete = async (documentId) => {
     await deleteDoc(doc(firestore, "items", documentId));
+    const imageRef = ref(storage, `images/${documentId}`);
+
+    deleteObject(imageRef)
+      .then(() => {})
+      .catch((error) => {});
     setProducts((products) =>
       products.filter((item) => item.id !== documentId)
     );
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: "30px" }}>
       <div className="add-button">
         <Button
           variant="outlined"
@@ -41,7 +53,6 @@ const AdminBottlesImage = ({ products, setProducts }) => {
         </Button>
       </div>
       <div className="image-list-container">
-
         {products.map((product) => (
           <Card
             className={"image-card"}
@@ -55,16 +66,19 @@ const AdminBottlesImage = ({ products, setProducts }) => {
                 {product.data.productName}
               </Typography>
               <Typography variant="body2">
-                {product.data.description}
+                {product.data.possibleElements}
+              </Typography>
+              <Typography variant="h6">
+                {product.data.price} RON
               </Typography>
             </CardContent>
             <CardActions>
               <Button
                 style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                zIndex: "1",
+                  position: "absolute",
+                  top: "20px",
+                  right: "10px",
+                  zIndex: "1",
                 }}
                 variant="outlined"
                 color="secondary"

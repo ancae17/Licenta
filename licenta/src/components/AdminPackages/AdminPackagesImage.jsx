@@ -52,7 +52,12 @@ const AdminPackagesImage = ({ products, setProducts }) => {
           <Typography variant="h5" component="div">
             {product.data.productName}
           </Typography>
-          <Typography variant="body2">{product.data.description}</Typography>
+          <Typography variant="body2">
+                {product.data.possibleElements}
+              </Typography>
+              <Typography variant="h6">
+                {product.data.price} RON
+              </Typography>
         </CardContent>
         <CardActions>
         <Button

@@ -3,12 +3,12 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 100px 250px; /* Adjust the padding value as per your desired space on the sides */
+    padding: 0px 250px; /* Adjust the padding value as per your desired space on the sides */
   }
   
-  .image-card {
-    flex: 0 0 calc(25% - 20px); /* Adjust the width of the cards and the gap value as per your desired layout */
-    max-width: 200px; /* Adjust the maximum width of the cards as per your desired size */
+  .image-card2 {
+    flex: 0 0 calc(45% - 20px); /* Adjust the width of the cards and the gap value as per your desired layout */
+    max-width: 2000px; /* Adjust the maximum width of the cards as per your desired size */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -47,23 +47,14 @@
     margin-bottom: 8px;
   }
   
-  .favorite-icon-container {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background-color: #fff;
-    border-radius: 50%;
-    padding: 6px;
-    transition: opacity 0.3s;
-    opacity: 0;
-  }
-  
-  .image-card:hover .favorite-icon-container {
+  .image-card:hover {
     opacity: 1;
   }
   
-  .favorite-icon {
-    color: red;
-    font-size: 20px;
+  .add-button{
+    padding: 100px;
+    margin-left: 600px;
+    margin: 0px 0px 0px 600px;
+    height: 0px;
   }
   

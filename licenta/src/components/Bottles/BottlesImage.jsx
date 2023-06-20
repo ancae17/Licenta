@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import "./BottlesImage.css"; // Import the CSS file for styling
 import { useNavigate } from "react-router-dom";
 import { firestore, storage } from "../../firebase";
 import { collection, addDoc, deleteDoc, doc, getDocs } from "firebase/firestore";
@@ -94,16 +93,17 @@ const BottlesImage = ({ products }) => {
   };
 
   return (
-    <div className="image-list-container" style={{ padding: "200px 250px" }}>
+    <div className="image-list-container" style={{ padding: "150px 250px" }}>
       {bottles.map((product) => (
         <Card
           className={"image-card"}
           key={product.id}
           onMouseEnter={() => handleMouseEnter(product)}
           onMouseLeave={handleMouseLeave}
+          style={{ marginBottom:"5px", maxHeight:"500px" }}
         >
           <div style={{ position: "relative" }}>
-            <img src={product.image} alt={""} className="image" />
+            <img style={{maxHeight:"300px"}} src={product.image} alt={""} className="image" />
             <Button
               style={{
                 position: "absolute",
@@ -124,8 +124,14 @@ const BottlesImage = ({ products }) => {
             <Typography variant="h5" component="div" align="center">
               {product.data.productName}
             </Typography>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: "3px"}}>
+                <hr style={{ flex: '1', borderTop: '1px solid black', width: '200px' }} />
+            </div>
+            <Typography variant="h6" component="div" align="center">
+              {product.data.price} RON
+            </Typography>
           </CardContent>
-          <Button
+          <Button 
             onClick={() => handleNavigateToProductOnClick(product)}
             color="secondary"
           >

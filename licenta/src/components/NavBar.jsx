@@ -3,7 +3,10 @@ import { AppBar, Button, Tab, Tabs, Toolbar, Typography } from "@mui/material";
 import { BrushTwoTone } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase"; // Import Firebase authentication module
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Tooltip } from '@mui/material';
+
 
 function NavBar() {
   const [value, setValue] = useState();
@@ -43,13 +46,21 @@ function NavBar() {
   const handlePackagesClick = () => {
     navigate("/PackagesMain");
   };
-  
+
   const handleCartClick = () => {
     navigate("/CartPage");
   };
 
   const handleFavoritesClick = () => {
     navigate("/favorites");
+  };
+
+  const handleMyOrdersClick = () => {
+    navigate("/myorders");
+  };
+
+  const handleBrushClick = () => {
+    navigate("/");
   };
 
   const handleLogoutClick = () => {
@@ -69,10 +80,8 @@ function NavBar() {
     <React.Fragment>
       <AppBar sx={{ background: "#83219B" }}>
         <Toolbar>
-          <BrushTwoTone sx={{ fontSize: 40 }} />
-          <Typography>
-            GiftLand
-          </Typography>
+          <BrushTwoTone sx={{ fontSize: 40 }} onClick={handleBrushClick} />
+          <Typography onClick={handleBrushClick}>GiftLand</Typography>
           <Tabs
             sx={{ marginLeft: "auto" }}
             textColor="inherit"
@@ -80,33 +89,44 @@ function NavBar() {
             onChange={(e, value) => setValue(value)}
             indicatorColor="secondary"
           >
-            <Tab label="Favorites" onClick={handleFavoritesClick}/>
             <Tab label="Bottles" onClick={handleBottlesClick} />
-            <Tab label="T-shirts" onClick={handleTshirtsClick}/>
-            <Tab label="Glasses" onClick={handleGlassesClick}/>
-            <Tab label="Packages" onClick={handlePackagesClick}/>
+            <Tab label="T-shirts" onClick={handleTshirtsClick} />
+            <Tab label="Glasses" onClick={handleGlassesClick} />
+            <Tab label="Packages" onClick={handlePackagesClick} />
           </Tabs>
 
-       
           {isLoggedIn ? (
-            <div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+                            <Tab
+                label="My orders"
+                onClick={handleMyOrdersClick}
+                style={{marginRight: "5px"}}
+              />
+
+            <Tooltip title="Go to favorites" placement="bottom">
+              <Tab
+                onClick={handleFavoritesClick}
+                icon={<FavoriteIcon color="inherit" sx={{ fontSize: 28 }} />}
+                style={{ margin: "-20px" }}
+                />
+            </Tooltip>
+
+            <Tooltip title="Go to cart" placement="bottom">
+              <Tab
+                onClick={handleCartClick}
+                icon={<ShoppingCartIcon color="inherit" sx={{ fontSize: 28 }} />}
+                style={{ margin: "-15px" }}
+              />
+            </Tooltip>
               <Button
-              sx={{ marginLeft: "auto" }}
-              variant="outlined"
-              color="inherit"
-              onClick={handleLogoutClick}
-            >
-              Logout
-            </Button>
-             <Button
-             sx={{ marginLeft: "20px" }}
-             variant="outlined"
-             color="inherit"
-             onClick={handleCartClick}
-           >
-             <ShoppingCartIcon/>
-         </Button>
-         </div>
+                variant="outlined"
+                color="inherit"
+                onClick={handleLogoutClick}
+                style={{ margin: "5px" }}
+              >
+                Logout
+              </Button>
+            </div>
           ) : (
             <Button
               sx={{ marginLeft: "10px" }}

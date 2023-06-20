@@ -6,6 +6,7 @@ import {
   CardContent,
   CardActions,
 } from "@mui/material";
+import NavBar from "../NavBar";
 import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { firestore, storage } from "../../firebase";
@@ -128,74 +129,78 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    navigate("/CheckoutPage", { state: {cartItems, totalCost: cartTotal}});
+    navigate("/CheckoutPage", { state: { cartItems, totalCost: cartTotal } });
   };
 
   const handlePreviousPage = () => {
     navigate(-1); // Go back to the previous page
   };
 
-
   return (
-    <RootContainer>
-      <Title variant="h4" color="secondary">
-        Shopping Cart
-      </Title>
+    <div>
+      <NavBar />
+      <RootContainer style={{ marginTop: "100px" }}>
+        <Title variant="h4" color="secondary">
+          Shopping Cart
+        </Title>
 
-      {cartItems.map((item) => (
-        <CartCard key={item.id}>
-          <CardContentContainer>
-            <img
-              src={item.image}
-              alt={""}
-              className="image"
-              style={{ width: "100px", height: "130px" }}
-            />
-            <Typography variant="h6" style={{ marginTop: "40px" }}>
-              {item.data.productName}
-            </Typography>
-            <Typography variant="h6" style={{ marginTop: "40px" }}>
-              {item.data.price} Lei
-            </Typography>
-          </CardContentContainer>
-          <div
-            style={{
-              marginTop: "3px",
-              marginLeft: "15px",
-              marginBottom: "10px",
-            }}
-          >
-            <Typography>{item.data.cartDescription}</Typography>
-          </div>
-          <div>
-            <Button
-              onClick={() => handleRemove(item.id)}
-              style={{ marginLeft: "510px" }}
+        {cartItems.map((item) => (
+          <CartCard key={item.id}>
+            <CardContentContainer>
+              <img
+                src={item.image}
+                alt={""}
+                className="image"
+                style={{ width: "100px", height: "130px" }}
+              />
+              <Typography variant="h6" style={{ marginTop: "40px" }}>
+                {item.data.productName}
+              </Typography>
+              <Typography variant="h6" style={{ marginTop: "40px" }}>
+                {item.data.price} Lei
+              </Typography>
+            </CardContentContainer>
+            <div
+              style={{
+                marginTop: "3px",
+                marginLeft: "15px",
+                marginBottom: "10px",
+              }}
             >
-              Delete
-            </Button>
-          </div>
-        </CartCard>
-      ))}
+              <Typography>{item.data.cartDescription}</Typography>
+            </div>
+            <div>
+              <Button
+                onClick={() => handleRemove(item.id)}
+                style={{ marginLeft: "510px" }}
+              >
+                Delete
+              </Button>
+            </div>
+          </CartCard>
+        ))}
 
-      <TotalContainer>
-        <PreviousPageButton
-          variant="contained"
-          color="secondary"
-          onClick={handlePreviousPage}
-        >
-          Previous Page
-        </PreviousPageButton>
-        <Typography variant="h6">Total: {cartTotal} Lei</Typography>
-        <CheckoutButton
-          variant="contained"
-          color="secondary"
-          onClick={handleCheckout}
-        >
-          Checkout
-        </CheckoutButton>
-      </TotalContainer>
-    </RootContainer>
+        <TotalContainer>
+          <PreviousPageButton
+            variant="contained"
+            color="secondary"
+            onClick={handlePreviousPage}
+          >
+            Previous Page
+          </PreviousPageButton>
+          <Typography variant="h6">Total: {cartTotal} Lei</Typography>
+          {cartItems.length !== 0 && (
+            <CheckoutButton
+              variant="contained"
+              color="secondary"
+              onClick={handleCheckout}
+            >
+              Checkout
+            </CheckoutButton>
+          )}
+        </TotalContainer>
+      </RootContainer>
+    </div>
   );
 };
 

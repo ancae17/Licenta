@@ -14,7 +14,6 @@ const AddBottle = () => {
   const [possibleElements, setPossibleElements] = useState("");
   const [price, setPrice] = useState(0);
 
-
   const [productImage, setProductImage] = useState(null);
 
   const handleImageUpload = (image) => {
@@ -32,15 +31,15 @@ const AddBottle = () => {
   const handleAddToPage = async () => {
     try {
       // Create a new document in the "bottles" collection
-      
+
       const docRef = await addDoc(collection(firestore, "items"), {
         productName,
         description,
         possibleElements,
         category: "bottles",
-        price
+        price,
       });
-      
+
       await handleFileUpload(productImage, docRef.id);
 
       console.log("Product added with ID: ", docRef.id);
@@ -67,72 +66,68 @@ const AddBottle = () => {
   });
 
   return (
-    <div><AdminNavBar />
-    <div className="product-page" style={{marginTop: "100px"}}>
-      <div>
-        {/* <Button onClick={handleAddPhotoClick} variant="outlined" color="secondary">
-             <AddPhotoAlternateIcon sx={{ fontSize: 100 }}
-             variant="outlined"
-             color="secondary"/>
-         </Button> */}
-        <ImageUpload onImageUpload={handleImageUpload} />
+    <div>
+      <AdminNavBar />
+      <div className="product-page" style={{ marginTop: "100px" }}>
+        <div>
+          <ImageUpload onImageUpload={handleImageUpload} />
+        </div>
+        <form className="product-form" onSubmit={(e) => e.preventDefault()}>
+          <div className="form-group">
+            <label htmlFor="productName">Product Name</label>
+            <input
+              type="text"
+              id="productName"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="possibleElements">Possible Elements</label>
+            <input
+              type="text"
+              id="possibleElements"
+              value={possibleElements}
+              onChange={(e) => setPossibleElements(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="price">Price</label>
+            <input
+              type="number"
+              id="price"
+              value={price}
+              onChange={(e) => setPrice(parseFloat(e.target.value))}
+            />
+          </div>
+
+          <Button
+            variant="contained"
+            color="secondary"
+            type="submit"
+            onClick={handleAddToPage}
+          >
+            Add to Page
+          </Button>
+          <PreviousPageButton
+            variant="contained"
+            color="secondary"
+            onClick={handlePreviousPage}
+          >
+            Previous Page
+          </PreviousPageButton>
+        </form>
       </div>
-      <form className="product-form" onSubmit={(e) => e.preventDefault()}>
-        <div className="form-group">
-          <label htmlFor="productName">Product Name</label>
-          <input
-            type="text"
-            id="productName"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="possibleElements">Possible Elements</label>
-          <input
-            type="text"
-            id="possibleElements"
-            value={possibleElements}
-            onChange={(e) => setPossibleElements(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-        <label htmlFor="price">Price</label>
-          <input
-             type="number"
-             id="price"
-             value={price}
-            onChange={(e) => setPrice(parseFloat(e.target.value))}
-          />
-        </div>
-
-        <Button
-          variant="contained"
-          color="secondary"
-          type="submit"
-          onClick={handleAddToPage}
-        >
-          Add to Page
-        </Button>
-        <PreviousPageButton
-          variant="contained"
-          color="secondary"
-          onClick={handlePreviousPage}
-        >
-          Previous Page
-        </PreviousPageButton>
-      </form>
-    </div>
     </div>
   );
 };
