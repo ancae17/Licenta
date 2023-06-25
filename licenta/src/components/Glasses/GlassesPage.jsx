@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./GlassesPage.css";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import { useLocation } from "react-router";
 import { UserAuth } from "../../context/AuthContext";
 import { collection, addDoc, getDocs } from "firebase/firestore";
@@ -20,6 +20,7 @@ const GlassesPage = (props) => {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const { user } = UserAuth();
+  const [selectedColors, setSelectedColors] = useState([]);
 
   const fetchReviews = async () => {
     const reviewsCollection = await getDocs(collection(firestore, "reviews"));
@@ -33,7 +34,7 @@ const GlassesPage = (props) => {
   };
   useEffect(() => {
     fetchReviews();
-  },);
+  },[]);
 
   const handleAddToCart = async () => {
     try {
@@ -42,6 +43,7 @@ const GlassesPage = (props) => {
         itemId: item.id,
         cartDescription: description,
         favoriteElements,
+        colors: selectedColors,
       });
 
       console.log("Item added with ID: ", docRef.id);
@@ -78,6 +80,26 @@ const GlassesPage = (props) => {
   const handleRatingChange = (value) => {
     setRating(value);
   };
+
+  {/* Color picker dropdown */}
+  const colors = [
+    { name: "Rosu", label: "Rosu" },
+    { name: "Verde", label: "Verde" },
+    { name: "Albastru", label: "Albastru" },
+    { name: "Lila", label: "Lila" },
+    { name: "Galben", label: "Galben" },
+    { name: "Portocaliu", label: "Portocaliu" },
+    { name: "Gri", label: "Gri" },
+    { name: "Negru", label: "Negru" },
+    { name: "Argintiu", label: "Argintiu" },
+    { name: "Auriu", label: "Auriu" },
+  ];
+
+  const handleColorChange = (event) => {
+    const selected = event.target.value;
+    setSelectedColors(selected.slice(0, 2));
+  };
+{/* Color picker dropdown */}
 
   return (
     <div>
@@ -158,6 +180,31 @@ const GlassesPage = (props) => {
                     placeholder="Puteti alege din lista de mai sus sau puteti scrie altele similare"
                     style={{ width: "500px" }}
                   />
+
+                  {/* Color picker dropdown */}
+      <div className="form-group" style={{marginTop: "20px" }}>
+       <label htmlFor="favoriteColors">Select maxim 2 colors</label>
+          <FormControl style={{ width: "500px", marginTop: "10px" }}>
+            <InputLabel id="favoriteColors-label">Select Colors</InputLabel>
+              <Select
+                labelId="favoriteColors-label"
+                id="favoriteColors"
+                multiple
+                value={selectedColors}
+                onChange={(e) => setSelectedColors(e.target.value)}
+                renderValue={(selected) => selected.join(", ")}
+                style={{ marginTop: "5px" }}
+              >
+          {colors.map((color) => (
+            <MenuItem key={color.name} value={color.name}>
+              {color.label}
+            </MenuItem>
+          ))}
+              </Select>
+          </FormControl>
+      </div>
+{/* Color picker dropdown */}
+
                 </div>
                 <Button
                   variant="contained"

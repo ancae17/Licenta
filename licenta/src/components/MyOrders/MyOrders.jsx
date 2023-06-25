@@ -5,6 +5,7 @@ import { ref, getDownloadURL } from "firebase/storage";
 import MyOrdersCard from "./MyOrdersCard";
 import NavBar from "../NavBar";
 import { UserAuth } from '../../context/AuthContext';
+import backgroundImage from '../../Images/background4.jpg'
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -27,7 +28,21 @@ const MyOrders = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        opacity: 0.8,
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    />
     <NavBar/>
     <MyOrdersCard products={orders} setProducts={setOrders}/>
     </div>

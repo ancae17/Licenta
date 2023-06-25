@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './TshirtsPage.css';
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
 import { useLocation } from 'react-router';
 import { UserAuth } from '../../context/AuthContext';
 import { collection, addDoc, getDocs } from "firebase/firestore";
@@ -20,6 +20,7 @@ const TshirtsPage = (props) => {
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const { user } = UserAuth();
+  const [selectedColors, setSelectedColors] = useState([]);
 
   const fetchReviews = async () => {
     const reviewsCollection = await getDocs(collection(firestore, "reviews"));
@@ -33,7 +34,7 @@ const TshirtsPage = (props) => {
   };
   useEffect(() => {
     fetchReviews();
-  },);
+  },[]);
 
 
   const handleAddToCart = async () => {
@@ -44,6 +45,7 @@ const TshirtsPage = (props) => {
         itemId: item.id,
         cartDescription: description,
         favoriteElements,
+        colors: selectedColors,
       });
       
       console.log("Item added with ID: ", docRef.id);
@@ -81,6 +83,7 @@ const TshirtsPage = (props) => {
   const handleRatingChange = (value) => {
     setRating(value);
   };
+
 
   return (
     <div><NavBar />

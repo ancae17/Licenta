@@ -4,6 +4,7 @@ import BottlesImage from "./BottlesImage";
 import { firestore, storage } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
+import backgroundImage from '../../Images/background4.jpg'
 
 const BottlesMain = () => {
   const [bottles, setBottles] = useState([]);
@@ -37,10 +38,25 @@ const BottlesMain = () => {
     }
   };
   return (
-    <div>
-      <NavBar />
-      <BottlesImage products={bottles} />
-    </div>
+    // <div style={{ background: 'linear-gradient(#FFFFFF, #F8DFFF, #D6B3DF, #E27CFC )' }}>
+    <div style={{ position: 'relative' }}>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        opacity: 0.8,
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    />
+    <NavBar />
+    <BottlesImage products={bottles} />
+  </div>
   );
 };
 export default BottlesMain;

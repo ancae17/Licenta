@@ -85,6 +85,9 @@ const OrdersCard = ({ products, setProducts }) => {
                 {item.data.favoriteElements}
                </Typography>
                <Typography key={index} variant="body2">
+                {item.data.colors.map(item => (`${item} `))} 
+               </Typography>
+               <Typography key={index} variant="body2">
                 {item.data.price} RON
                </Typography>
 
@@ -99,9 +102,17 @@ const OrdersCard = ({ products, setProducts }) => {
       <Button variant="contained" color="secondary" onClick={() => handleSend(product.id)}>
         Send
       </Button>
-      <Typography variant="h6">
-        {product.data.totalCost} RON
+      {product.data.ramburs ? (
+           <Typography variant="h6">
+           {product.data.totalCost} RON
+         </Typography>
+      ) : (
+        <Typography variant="h6">
+        Achitat cu card
       </Typography>
+      )
+}
+
     </CardActions>
   </div>
           </Card>

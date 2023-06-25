@@ -4,6 +4,7 @@ import { BrushTwoTone } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase"; // Import Firebase authentication module
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { ReactComponent as Logo } from '../GiftLand.svg';
 
 function AdminNavBar() {
   const [value, setValue] = useState();
@@ -68,8 +69,7 @@ function AdminNavBar() {
     <React.Fragment>
       <AppBar sx={{ background: "#290728" }}>
         <Toolbar>
-          <BrushTwoTone sx={{ fontSize: 40 }} />
-          <Typography>GiftLand</Typography>
+          <Logo width={150} height={50} />
           <Tabs
             sx={{ marginLeft: "auto" }}
             textColor="inherit"

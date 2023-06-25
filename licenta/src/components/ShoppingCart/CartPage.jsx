@@ -114,7 +114,7 @@ const CartPage = () => {
     };
 
     fetchData();
-  });
+  },[calculateTotal]);
 
   const handleRetrieveFile = async (id) => {
     try {

@@ -15,6 +15,7 @@ import { useLocation } from "react-router";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { UserAuth } from "../../context/AuthContext";
+import NavBar from "../NavBar";
 
 const CheckoutPage = () => {
   const [name, setName] = useState("");
@@ -58,7 +59,7 @@ const CheckoutPage = () => {
   const location = useLocation();
   const { cartItems, totalCost } = location.state;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => { 
     try {
       const docRef = await addDoc(collection(firestore, "orders"), {
         cartItems,
@@ -70,7 +71,7 @@ const CheckoutPage = () => {
         totalCost,
         clientId: user.uid,
       });
-    } catch (error) {}
+    } catch (error) { debugger; console.log(error)}
 
     cartItems.forEach(async (element) => {
       await deleteDoc(doc(firestore, "cartItems", element.id));
@@ -92,6 +93,7 @@ const CheckoutPage = () => {
 
   return (
     <div>
+      <NavBar />
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -173,7 +175,7 @@ const CheckoutPage = () => {
           />
         </div>
         <Button variant="contained" color="secondary" type="submit">
-          Submit
+          Place Order
         </Button>
       </form>
       <Modal

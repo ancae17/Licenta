@@ -4,6 +4,7 @@ import PackagesImage from "./PackagesImage";
 import { firestore, storage } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
+import backgroundImage from '../../Images/background4.jpg'
 
 const PackagesMain = () => {
   const [packages, setPackages] = useState([]);
@@ -37,7 +38,21 @@ const PackagesMain = () => {
     }
   };
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        opacity: 0.8,
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    />
       <NavBar />
       <PackagesImage products={packages} />
     </div>

@@ -7,7 +7,7 @@ function MainPage() {
     <div>
       <NavBar />
       <div className="container-main">
-        <div className="image-container-main">
+        <div className="image-container-main"> 
           <img
             src={require("../Images/mainPage.jpeg")}
             alt=""
@@ -29,6 +29,9 @@ function MainPage() {
                 <br></br>
                 <br></br>
               Orice produs de pe acest site poate fi personalizabil și realizat după preferințele clientului.
+                <br></br>
+                <br></br>
+                Contact: 0725482700
               </div> 
             </div>
           </div>

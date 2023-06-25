@@ -6,6 +6,7 @@ import { auth } from "../firebase"; // Import Firebase authentication module
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Tooltip } from '@mui/material';
+import { ReactComponent as Logo } from '../GiftLand.svg';
 
 
 function NavBar() {
@@ -80,8 +81,7 @@ function NavBar() {
     <React.Fragment>
       <AppBar sx={{ background: "#83219B" }}>
         <Toolbar>
-          <BrushTwoTone sx={{ fontSize: 40 }} onClick={handleBrushClick} />
-          <Typography onClick={handleBrushClick}>GiftLand</Typography>
+          <Logo onClick={handleBrushClick} width={150} height={50} />
           <Tabs
             sx={{ marginLeft: "auto" }}
             textColor="inherit"

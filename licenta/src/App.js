@@ -1,10 +1,8 @@
 import React from 'react';
 import Login from './components/Login';
 import Register from './components/Register';
-import Account from './components/Account';
 import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
 import TshirtsMain from './components/Tshirts/TshitsMain'
 import PackagesMain from './components/Packagess/PackagesMain';
 import GlassesMain from './components/Glasses/GlassesMain';
@@ -58,16 +56,6 @@ function App() {
           <Route path='/orders' element={<Orders />} />
           <Route path='/favorites' element={<FavoritesMain />} />
           <Route path='/myorders' element={<MyOrders />} />
-          
-
-          <Route
-            path='/account'
-            element={
-              <ProtectedRoute>
-                <Account />
-              </ProtectedRoute>
-            }
-          />
         </Routes>
       </AuthContextProvider>
     </div>
